@@ -1,4 +1,4 @@
-package com.example.myps_backend;
+package com.cpxHelper.myPatients;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
