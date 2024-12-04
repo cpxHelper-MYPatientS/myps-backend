@@ -3,9 +3,15 @@ package com.cpxHelper.myPatients.domain.entity.membership;
 import com.cpxHelper.myPatients.domain.entity.member.Member;
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+@Getter
+@NoArgsConstructor // 기본 생성자 추가
+@Entity
+@Table(name = "membership")
 public class Membership {
 
     @Id

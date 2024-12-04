@@ -34,9 +34,10 @@ public class CaseExam {
 
     @OneToMany(mappedBy = "caseExam", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CaseExamChecklist> checklists;
-
+    
     @Builder
-    public CaseExam(Member member, Patient patient, LocalDateTime createdAt) {
+    public CaseExam(Long id, Member member, Patient patient, LocalDateTime createdAt) {
+        this.id = id; // 테스트 코드를 위한 빌더 패턴
         this.member = member;
         this.patient = patient;
         this.createdAt = createdAt;

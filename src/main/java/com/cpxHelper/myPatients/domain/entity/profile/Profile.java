@@ -3,9 +3,15 @@ package com.cpxHelper.myPatients.domain.entity.profile;
 import com.cpxHelper.myPatients.domain.entity.member.Member;
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "profile") // 테이블 이름 지정
+@Getter
+@NoArgsConstructor // JPA가 필요로 하는 기본 생성자
 public class Profile {
 
     @Id
@@ -29,7 +35,7 @@ public class Profile {
     @Column(name = "profile_school", nullable = false)
     private String school;
 
-    @Column(name="profile_hospital")
+    @Column(name = "profile_hospital")
     private String hospital;
 
     @Column(name = "profile_exam_date")
