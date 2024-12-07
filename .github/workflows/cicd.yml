@@ -18,7 +18,9 @@ jobs:
 
       # 2. Gradle로 JAR 파일 빌드
       - name: Build Spring Boot App
-        run: ./gradlew bootJar
+        run: |
+          chmod +x ./gradlew
+          ./gradlew bootJar
 
       # 3. Docker 이미지 빌드
       - name: Build Docker image
