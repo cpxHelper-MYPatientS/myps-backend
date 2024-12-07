@@ -1,0 +1,63 @@
+name: Deploy Spring Boot App
+
+# 워크플로가 시작될 조건 지정
+on:
+  push:
+    branches: [ dev, main ]
+  pull_request:
+    branches: [ dev, main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. 코드 체크아웃
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      # 2. Docker 이미지 빌드
+      - name: Build Docker image
+        run: |
+          docker build -t spring-boot-app:latest .
+
+      # 3. Docker 이미지 저장
+      - name: Save Docker image as tar
+        run: |
+          docker save spring-boot-app:latest > spring-boot-app.tar
+
+      # 4. Docker 이미지 및 application.yml 업로드
+      - name: Upload files to EC2
+        uses: appleboy/scp-action@v0.1.6
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: |
+            spring-boot-app.tar
+          target: /home/ubuntu/
+
+      # 5. EC2에서 application.yml 생성
+      - name: Create application.yml on EC2
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            echo "${{ secrets.APP_YML }}" > /home/ubuntu/application.yml
+
+      # 6. EC2에서 Docker 컨테이너 실행
+      - name: Deploy Docker container on EC2
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            docker load < /home/ubuntu/spring-boot-app.tar
+            docker stop spring-boot-app || true
+            docker rm spring-boot-app || true
+            docker run -d --name spring-boot-app -p 8080:8080 \
+              -v /home/ubuntu/application.yml:/app/config/application.yml \
+              spring-boot-app:latest
