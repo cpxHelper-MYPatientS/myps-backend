@@ -16,23 +16,34 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v3
 
-      # 2. Gradle로 JAR 파일 빌드
+      # 2. Java 17 설정
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      # 3. Java 버전 확인
+      - name: Verify Java version
+        run: java -version
+
+      # 4. Gradle로 JAR 파일 빌드
       - name: Build Spring Boot App
         run: |
           chmod +x ./gradlew
           ./gradlew bootJar
 
-      # 3. Docker 이미지 빌드
+      # 5. Docker 이미지 빌드
       - name: Build Docker image
         run: |
           docker build -t spring-boot-app:latest .
 
-      # 4. Docker 이미지 저장
+      # 6. Docker 이미지 저장
       - name: Save Docker image as tar
         run: |
           docker save spring-boot-app:latest > spring-boot-app.tar
 
-      # 5. Docker 이미지 및 application.yml 업로드
+      # 7. Docker 이미지 및 application.yml 업로드
       - name: Upload files to EC2
         uses: appleboy/scp-action@v0.1.6
         with:
@@ -43,7 +54,7 @@ jobs:
             spring-boot-app.tar
           target: /home/ubuntu/
 
-      # 6. EC2에서 application.yml 생성
+      # 8. EC2에서 application.yml 생성
       - name: Create application.yml on EC2
         uses: appleboy/ssh-action@v0.1.6
         with:
@@ -53,7 +64,7 @@ jobs:
           script: |
             echo "${{ secrets.APP_YML }}" > /home/ubuntu/application.yml
 
-      # 7. EC2에서 Docker 컨테이너 실행
+      # 9. EC2에서 Docker 컨테이너 실행
       - name: Deploy Docker container on EC2
         uses: appleboy/ssh-action@v0.1.6
         with:
