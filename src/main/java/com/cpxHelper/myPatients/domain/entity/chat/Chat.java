@@ -44,4 +44,17 @@ public class Chat {
         this.message = message;
         this.createdAt = createdAt;
     }
+
+    /**
+     * 송신자의 역할을 반환합니다.
+     * @return "user" 또는 "assistant" 역할
+     */
+    public String getSenderRole() {
+        if ("USER".equalsIgnoreCase(sender)) {
+            return "user";
+        } else if ("GPT".equalsIgnoreCase(sender)) {
+            return "assistant";
+        }
+        throw new IllegalArgumentException("Unknown sender role: " + sender);
+    }
 }

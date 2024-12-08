@@ -27,6 +27,8 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -104,16 +106,21 @@ class ChatControllerTest {
 
         // Mock Service Calls
         Mockito.when(caseExamService.getCaseExamById(456L)).thenReturn(mockCaseExam);
-        Mockito.when(chatService.processUserMessage(eq(mockCaseExam), eq("환자가 배가 아프다고 말했어요.")))
+        Mockito.when(caseExamService.createCaseExam(eq(123L), eq(456L)))
+                .thenReturn(mockCaseExam);
+        Mockito.when(chatService.processUserMessage(eq(mockCaseExam), eq(chatHistory), eq("환자가 배가 아프다고 말했어요.")))
                 .thenReturn("배가 아픈 원인은 다양합니다. 추가적인 정보가 필요합니다.");
         Mockito.when(chatService.getChatsByCaseExam(456L)).thenReturn(chatHistory);
 
         // Perform request
         ChatRequestDto requestDto = new ChatRequestDto();
+        requestDto.setCaseExamId(456L); // 추가
         requestDto.setPatientId(123L);
         requestDto.setMessage("환자가 배가 아프다고 말했어요.");
 
-        mockMvc.perform(post("/api/v1/chat/message")
+        mockMvc.perform(post("/api/chats/message")
+                        .with(csrf()) // CSRF 토큰 추가
+                        .with(user("testUser").roles("USER")) // 인증 정보 추가
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestDto)))
                 .andExpect(status().isOk())
@@ -123,4 +130,5 @@ class ChatControllerTest {
                 .andExpect(jsonPath("$.messages[1].sender").value("GPT"))
                 .andExpect(jsonPath("$.messages[1].content").value("배가 아픈 원인은 다양합니다. 추가적인 정보가 필요합니다."));
     }
+
 }

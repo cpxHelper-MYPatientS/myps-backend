@@ -9,7 +9,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Getter
@@ -42,5 +44,24 @@ public class CaseExam {
         this.member = member;
         this.patient = patient;
         this.createdAt = createdAt;
+    }
+
+    /**
+     * 환자 정보를 JSON 형식으로 반환.
+     * @return Map<String, Object> 환자 정보
+     */
+    public Map<String, Object> getPatientInfo() {
+        if (patient == null) {
+            return Map.of(); // 환자 정보가 없는 경우 빈 Map 반환
+        }
+
+        Map<String, Object> patientInfo = new HashMap<>();
+        patientInfo.put("name", patient.getName());
+        // patientInfo.put("dateOfBirth", patient.getDateOfBirth());
+        patientInfo.put("age", patient.getAge());
+        patientInfo.put("gender", patient.getGender());
+        patientInfo.put("chiefComplaints", patient.getChiefComplaints().getName()); // ChiefComplaints 설명 추가
+
+        return patientInfo;
     }
 }

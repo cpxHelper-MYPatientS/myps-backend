@@ -20,11 +20,11 @@ public class OpenAIService {
 
     private final OpenAIConfig openAiConfig;
 
-    public String callGptApi(String prompt) {
+    public String callGptApi(List<Map<String, String>> messages) {
         // HTTP 요청 본문 생성
         Map<String, Object> requestBody = Map.of(
                 "model", openAiConfig.getModel(),
-                "messages", List.of(Map.of("role", "user", "content", prompt)),
+                "messages", messages,
                 "max_tokens", openAiConfig.getMaxTokens(),
                 "temperature", openAiConfig.getTemperature()
         );
