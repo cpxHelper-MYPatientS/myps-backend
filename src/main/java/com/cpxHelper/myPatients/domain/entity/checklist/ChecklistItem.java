@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
+@Table(name = "checklist_item_tb") // 테이블 이름 지정
 public class ChecklistItem {
 
     @Id

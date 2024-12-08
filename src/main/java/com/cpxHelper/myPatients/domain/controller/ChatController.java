@@ -49,7 +49,7 @@ public class ChatController {
             caseExam = caseExamService.getCaseExamById(requestDto.getCaseExamId());
         } else {
             // 없으면 새로운 케이스 시험 생성
-            caseExam = caseExamService.createCaseExam(requestDto.getPatientId());
+            caseExam = caseExamService.createCaseExam(requestDto.getMemberId(), requestDto.getPatientId());
         }
 
         // 사용자 메시지를 처리하고 GPT 응답 생성

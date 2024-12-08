@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor
+@Table(name = "chat_tb") // 테이블 이름 지정
 public class Chat {
 
     @Id

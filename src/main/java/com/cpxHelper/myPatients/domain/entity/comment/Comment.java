@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
+@Table(name = "comment_tb") // 테이블 이름 지정
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

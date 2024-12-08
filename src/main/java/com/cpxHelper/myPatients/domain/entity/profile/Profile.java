@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "profile") // 테이블 이름 지정
+@Table(name = "profile_tb") // 테이블 이름 지정
 @Getter
 @NoArgsConstructor // JPA가 필요로 하는 기본 생성자
 public class Profile {

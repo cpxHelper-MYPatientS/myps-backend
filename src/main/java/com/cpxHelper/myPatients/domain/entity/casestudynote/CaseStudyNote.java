@@ -1,7 +1,6 @@
 package com.cpxHelper.myPatients.domain.entity.casestudynote;
 
 import com.cpxHelper.myPatients.domain.entity.caseexam.CaseExam;
-import com.cpxHelper.myPatients.domain.entity.member.Member;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,6 +11,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor
+@Table(name = "casestudynote_tb") // 테이블 이름 지정
 public class CaseStudyNote {
 
     @Id

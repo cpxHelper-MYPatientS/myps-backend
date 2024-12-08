@@ -1,6 +1,7 @@
 package com.cpxHelper.myPatients.domain.entity.chiefcomplaints;
 
-import com.cpxHelper.myPatients.domain.entity.subject.SubjectChiefComplaints;
+import com.cpxHelper.myPatients.domain.entity.patient.Patient;
+import com.cpxHelper.myPatients.domain.entity.subject.Subject;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,8 +22,12 @@ public class ChiefComplaints {
     @Column(name = "chief_complaints_name", nullable = false)
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name = "subject_id", referencedColumnName = "subject_id", nullable = false)
+    private Subject subject;
+
     @OneToMany(mappedBy = "chiefComplaints", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SubjectChiefComplaints> subjectChiefComplaints;
+    private List<Patient> patients;
 
     @Builder
     public ChiefComplaints(String name) {

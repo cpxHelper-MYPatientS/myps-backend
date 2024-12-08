@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
+@Table(name = "member_subject_tb") // 테이블 이름 지정
 public class MemberSubject {
 
     @Id

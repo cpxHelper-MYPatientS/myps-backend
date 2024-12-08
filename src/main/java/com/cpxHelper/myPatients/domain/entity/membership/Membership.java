@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor // 기본 생성자 추가
 @Entity
-@Table(name = "membership")
+@Table(name = "membership_tb")
 public class Membership {
 
     @Id

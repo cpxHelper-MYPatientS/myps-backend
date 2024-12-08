@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor // JPA에서 필요한 기본 생성자
 @Entity
-@Table(name = "member") // 테이블 이름 지정
+@Table(name = "member_tb") // 테이블 이름 지정
 public class Member {
 
     @Id

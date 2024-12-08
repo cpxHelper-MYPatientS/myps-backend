@@ -14,6 +14,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor
+@Table(name = "caseexam_tb") // 테이블 이름 지정
 public class CaseExam {
 
     @Id
