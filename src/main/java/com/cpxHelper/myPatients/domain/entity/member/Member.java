@@ -33,6 +33,7 @@ public class Member {
     private String phone;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "member_role", nullable = false)
     private MemberRole memberRole;
 
     @Column(name = "is_deleted", columnDefinition = "boolean default false")
