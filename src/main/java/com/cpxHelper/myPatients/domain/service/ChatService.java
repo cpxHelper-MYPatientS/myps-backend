@@ -57,7 +57,7 @@ public class ChatService {
         String promptTemplate = promptLoader.loadPromptTemplate();
 
         // 환자 정보를 JSON 형식으로 생성
-        String patientInfo = getPatientInfoAsJson(caseExam);
+        String patientInfo = caseExam.getPatient().getPatientInfoAsJson();
 
         // 메시지 리스트 생성
         List<Map<String, String>> messages = new ArrayList<>();
@@ -98,16 +98,16 @@ public class ChatService {
 
         return gptResponse;
     }
-
-    // 환자 정보를 JSON 형식으로 변환하는 메서드 예시
-    private String getPatientInfoAsJson(CaseExam caseExam) {
-        // 환자 정보를 가져와 JSON 문자열로 변환 (예: Jackson 사용)
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.writeValueAsString(caseExam.getPatientInfo());
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException("Failed to convert patient info to JSON", e);
-        }
-    }
+//
+//    // 환자 정보를 JSON 형식으로 변환하는 메서드
+//    private String getPatientInfoAsJson(CaseExam caseExam) {
+//        // 환자 정보를 가져와 JSON 문자열로 변환 (예: Jackson 사용)
+//        try {
+//            ObjectMapper objectMapper = new ObjectMapper();
+//            return objectMapper.writeValueAsString(caseExam.getPatientInfo());
+//        } catch (JsonProcessingException e) {
+//            throw new RuntimeException("Failed to convert patient info to JSON", e);
+//        }
+//    }
 
 }
