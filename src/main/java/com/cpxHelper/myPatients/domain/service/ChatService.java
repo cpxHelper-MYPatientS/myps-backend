@@ -91,7 +91,7 @@ public class ChatService {
         ));
 
         // GPT 호출
-        String gptResponse = openAiService.callGptApi(messages);
+        String gptResponse = openAiService.callGptApi(messages, "chat");
 
         // GPT 응답 저장
         saveMessage(caseExam, "GPT", "USER", gptResponse);
