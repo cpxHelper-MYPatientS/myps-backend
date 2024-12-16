@@ -2,10 +2,12 @@ package com.cpxHelper.myPatients.domain.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.cpxHelper.myPatients.domain.entity.chat.Chat;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Repository
 public interface ChatRepository extends JpaRepository<Chat, Long> {
 
     // 특정 시험의 대화 조회

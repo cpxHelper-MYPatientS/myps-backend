@@ -2,6 +2,7 @@ package com.cpxHelper.myPatients.domain.entity.chat;
 
 import com.cpxHelper.myPatients.domain.entity.caseexam.CaseExam;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "chat_tb") // 테이블 이름 지정
 public class Chat {
 

@@ -9,7 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @TestPropertySource(properties = {
-        "prompt.path=classpath:prompts/case_prompt.txt"
+        "prompt.paths.case=classpath:prompts/case_prompt.txt",
+        "prompt.paths.checklist=classpath:prompts/checklist_prompt.txt"
 })
 class PromptLoaderTest {
 
@@ -18,7 +19,7 @@ class PromptLoaderTest {
 
     @Test
     void testLoadPromptTemplate() {
-        String prompt = promptLoader.loadPromptTemplate();
+        String prompt = promptLoader.loadPromptTemplate("case");
         assertNotNull(prompt);
         System.out.println(prompt);
     }

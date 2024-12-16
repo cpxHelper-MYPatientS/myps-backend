@@ -4,9 +4,11 @@ import com.cpxHelper.myPatients.domain.entity.member.Member;
 import com.cpxHelper.myPatients.domain.entity.member.MemberPatient;
 import com.cpxHelper.myPatients.domain.entity.patient.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface MemberPatientRepository extends JpaRepository<MemberPatient, Long> {
 
     // 특정 멤버에 연결된 모든 환자 조회

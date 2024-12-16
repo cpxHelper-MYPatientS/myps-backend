@@ -12,19 +12,30 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
 public class PromptLoader {
 
-    // application.yaml에서 설정된 경로 주입
-    @Value("${prompt.path:}")
-    private Resource promptResource;
+    // application.yaml에서 여러 프롬프트 경로를 주입
+    @Value("#{${prompt.paths:{}}}")
+    private Map<String, Resource> promptResources = new HashMap<>();
 
-    // 프롬프트 파일 읽기
-    public String loadPromptTemplate() {
+    // 특정 키를 기반으로 프롬프트 파일 읽기
+    public String loadPromptTemplate(String key) {
+        Resource resource = promptResources.get(key);
+        if (resource == null) {
+            throw new RuntimeException("Prompt key not found: " + key);
+        }
+        return loadPromptTemplateFromResource(resource);
+    }
+
+    // 공통 메서드: Resource에서 프롬프트 파일 읽기
+    private String loadPromptTemplateFromResource(Resource resource) {
         try (BufferedReader reader = new BufferedReader(
-                new InputStreamReader(promptResource.getInputStream(), StandardCharsets.UTF_8))) {
+                new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8))) {
             StringBuilder stringBuilder = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {

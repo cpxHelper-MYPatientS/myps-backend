@@ -4,10 +4,12 @@ import com.cpxHelper.myPatients.domain.entity.caseexam.CaseExam;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Repository
 public interface CaseExamRepository extends JpaRepository<CaseExam, Long> {
 
     // 특정 작성자(Member)와 관련된 모든 사례 시험 조회

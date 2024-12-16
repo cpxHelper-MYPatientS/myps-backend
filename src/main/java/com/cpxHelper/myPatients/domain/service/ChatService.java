@@ -54,7 +54,7 @@ public class ChatService {
         saveMessage(caseExam, "USER", "GPT", userMessage);
 
         // 프롬프트 템플릿 로드
-        String promptTemplate = promptLoader.loadPromptTemplate();
+        String promptTemplate = promptLoader.loadPromptTemplate("case");
 
         // 환자 정보를 JSON 형식으로 생성
         String patientInfo = caseExam.getPatient().getPatientInfoAsJson();
@@ -98,16 +98,4 @@ public class ChatService {
 
         return gptResponse;
     }
-//
-//    // 환자 정보를 JSON 형식으로 변환하는 메서드
-//    private String getPatientInfoAsJson(CaseExam caseExam) {
-//        // 환자 정보를 가져와 JSON 문자열로 변환 (예: Jackson 사용)
-//        try {
-//            ObjectMapper objectMapper = new ObjectMapper();
-//            return objectMapper.writeValueAsString(caseExam.getPatientInfo());
-//        } catch (JsonProcessingException e) {
-//            throw new RuntimeException("Failed to convert patient info to JSON", e);
-//        }
-//    }
-
 }

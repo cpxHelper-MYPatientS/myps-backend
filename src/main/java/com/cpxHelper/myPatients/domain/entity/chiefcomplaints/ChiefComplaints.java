@@ -1,5 +1,6 @@
 package com.cpxHelper.myPatients.domain.entity.chiefcomplaints;
 
+import com.cpxHelper.myPatients.domain.entity.checklist.ChecklistItem;
 import com.cpxHelper.myPatients.domain.entity.patient.Patient;
 import com.cpxHelper.myPatients.domain.entity.subject.Subject;
 import jakarta.persistence.*;
@@ -29,6 +30,9 @@ public class ChiefComplaints {
 
     @OneToMany(mappedBy = "chiefComplaints", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Patient> patients;
+
+    @OneToMany(mappedBy = "chiefComplaints", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ChecklistItem> checklistItemList;
 
     @Builder
     public ChiefComplaints(String name) {

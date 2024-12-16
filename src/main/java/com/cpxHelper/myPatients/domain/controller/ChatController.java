@@ -2,16 +2,26 @@ package com.cpxHelper.myPatients.domain.controller;
 
 import com.cpxHelper.myPatients.domain.dto.ChatRequestDto;
 import com.cpxHelper.myPatients.domain.dto.ChatResponseDto;
+import com.cpxHelper.myPatients.domain.dto.ChecklistResponseDto;
 import com.cpxHelper.myPatients.domain.entity.caseexam.CaseExam;
 import com.cpxHelper.myPatients.domain.entity.chat.Chat;
+import com.cpxHelper.myPatients.domain.entity.checklist.CaseExamChecklist;
+import com.cpxHelper.myPatients.domain.entity.checklist.ChecklistItem;
+import com.cpxHelper.myPatients.domain.entity.checklist.ChecklistStatus;
+import com.cpxHelper.myPatients.domain.entity.patient.Patient;
+import com.cpxHelper.myPatients.domain.repository.CaseExamChecklistRepository;
+import com.cpxHelper.myPatients.domain.repository.ChecklistItemRepository;
 import com.cpxHelper.myPatients.domain.service.CaseExamService;
 import com.cpxHelper.myPatients.domain.service.ChatService;
+import com.cpxHelper.myPatients.domain.service.ChecklistService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -56,7 +66,7 @@ public class ChatController {
         }
 
         // 현재 진행 중인 채팅 내역 조회
-        List<Chat> chatHistory = chatService.getChatsByCaseExam(caseExam.getId());
+        List<Chat> chatHistory = new ArrayList<>(chatService.getChatsByCaseExam(caseExam.getId())); // 가변 리스트로 변환
 
         // 사용자 메시지를 처리하고 GPT 응답 생성
         String gptResponse = chatService.processUserMessage(caseExam, chatHistory, requestDto.getMessage());
@@ -87,6 +97,4 @@ public class ChatController {
 
         return ResponseEntity.ok(response);
     }
-
-
 }

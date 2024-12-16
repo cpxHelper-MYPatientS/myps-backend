@@ -62,7 +62,7 @@ class ChatControllerTest {
     @Test
     void handleChat_shouldReturnChatResponseDto() throws Exception {
         // Mock PromptLoader
-        Mockito.when(promptLoader.loadPromptTemplate()).thenReturn("This is a test template");
+        Mockito.when(promptLoader.loadPromptTemplate("case")).thenReturn("This is a test template");
 
         // Mock PromptProcessor
         Mockito.when(promptProcessor.processTemplate(any(), any()))

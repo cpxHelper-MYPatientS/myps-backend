@@ -1,5 +1,7 @@
 package com.cpxHelper.myPatients.domain.entity.checklist;
 
+import com.cpxHelper.myPatients.domain.entity.chiefcomplaints.ChiefComplaints;
+import com.cpxHelper.myPatients.domain.entity.subject.Subject;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,18 +18,22 @@ public class ChecklistItem {
     @Column(name = "checklist_item_id")
     private Long id;
 
-    @Column(nullable = false)
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "chief_complaints_id", referencedColumnName = "chief_complaints_id", nullable = false)
+    private ChiefComplaints chiefComplaints;
 
     @Column(nullable = false)
     private String category;
 
     @Column(nullable = false)
+    private String content;
+
+    @Column(nullable = false)
     private boolean isActive;
 
     @Builder
-    public ChecklistItem(String name, String category, boolean isActive) {
-        this.name = name;
+    public ChecklistItem(String content, String category, boolean isActive) {
+        this.content = content;
         this.category = category;
         this.isActive = isActive;
     }
