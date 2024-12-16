@@ -21,7 +21,7 @@ public class ChecklistService {
 
     public Map<Long, Integer> evaluateChecklist(List<Chat> chatHistory, List<ChecklistItem> checklistItems) {
         // 1. 프롬프트 템플릿 로드
-        String promptTemplate = promptLoader.loadPromptTemplate("checklist");
+        String promptTemplate = promptLoader.loadPromptTemplate("checklist_prompt");
 
         // 2. 메시지 생성
         String prompt = buildPrompt(chatHistory, checklistItems, promptTemplate);

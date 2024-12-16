@@ -54,7 +54,7 @@ public class ChatService {
         saveMessage(caseExam, "USER", "GPT", userMessage);
 
         // 프롬프트 템플릿 로드
-        String promptTemplate = promptLoader.loadPromptTemplate("case");
+        String promptTemplate = promptLoader.loadPromptTemplate("case_prompt");
 
         // 환자 정보를 JSON 형식으로 생성
         String patientInfo = caseExam.getPatient().getPatientInfoAsJson();
