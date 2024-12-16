@@ -71,6 +71,15 @@ public class ChatController {
         // 사용자 메시지를 처리하고 GPT 응답 생성
         String gptResponse = chatService.processUserMessage(caseExam, chatHistory, requestDto.getMessage());
 
+        Chat userChat = Chat.builder()
+                .caseExam(caseExam)
+                .sender("USER")
+                .receiver("GPT")
+                .message(requestDto.getMessage())
+                .createdAt(LocalDateTime.now())
+                .build();
+        chatHistory.add(userChat); // 채팅 내역에 USER 응답 추가
+
         // GPT 응답을 채팅 내역에 추가(저장 내용이랑 다른 부분이 있어 추후 수정이 필요할 듯.)
         Chat gptChat = Chat.builder()
                 .caseExam(caseExam)
